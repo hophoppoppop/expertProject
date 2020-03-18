@@ -60,10 +60,25 @@ const root = {
         updateExpenseRedis();
         return await Expense.findById(id).populate('category');
     },
-    insertExpense: async ({title,money})=>{
+    insertExpense: async ({title,money,category})=>{
+        const findCategory = await Category.findOne({
+            name: category  
+        });
+        let idCategory = "";
+        if(!findCategory)
+        {
+            const newCategory = new Category({
+                name:category,
+            });
+            const result = await newCategory.save();
+            idCategory = result._id;
+        }else{
+            idCategory = findCategory._id;
+        }
         const newExpense = new Expense({
             title:title,
-            money:money
+            money:money,
+            category: idCategory
         });
         const result = await newExpense.save();
         updateExpenseRedis();
