@@ -199,7 +199,7 @@ const updateCategoryRedis = async ()=>{
     // updateRedis('category',jsonCategory);
 }
 
-const getAll = (req,res)=>{
+const getAll = async (req,res)=>{
     try{
     
         let Expenses = "";
