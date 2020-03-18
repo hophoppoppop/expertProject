@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 
 const Expense = require('../models/expense.model').Expense;
 const Category = require('../models/expense.model').Category;
-// const Owner = require('../models/owner.model');
 const redis = require('redis');
 
 const { buildSchema } = require('graphql');
 const expressGraphQL = require('express-graphql');
-const client = redis.createClient();
+// const client = redis.createClient();
 
 const schema = buildSchema(`
 type Category {
@@ -187,17 +186,17 @@ const create = async (req,res)=>{
 
 const updateRedis = (title,json)=>
 {
-    client.setex(title,300, json);
+    // client.setex(title,300, json);
 }
 
 const updateExpenseRedis = async ()=>{
     const jsonExpenses = JSON.stringify(await Expense.find({}).populate('category'));
-    updateRedis('expenses',jsonExpenses);
+    // updateRedis('expenses',jsonExpenses);
 }
 
 const updateCategoryRedis = async ()=>{
     const jsonCategory = JSON.stringify(await Category.find({}));
-    updateRedis('category',jsonCategory);
+    // updateRedis('category',jsonCategory);
 }
 
 const getAll = (req,res)=>{
