@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/', async (req,res)=>{
-    res.redirect('expense');
+    res.redirect('graphql');
 });
 
 require('./routes/expense.routes.js')(app);
