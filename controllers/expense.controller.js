@@ -203,20 +203,24 @@ const getAll = (req,res)=>{
     try{
     
         let Expenses = "";
-
-        client.get("expenses", async (err, result)=>{
-            if(result)
-            {
-                // console.log(result);
-                Expenses = JSON.parse(result);
-            }else{
-                Expenses = await Expense.find({}).populate('category');
-                updateExpenseRedis();
-            }
-            res.json({
-                result: Expenses
-            });
+        Expenses = await Expense.find({}).populate('category');
+        res.json({
+            result: Expenses
         });
+
+        // client.get("expenses", async (err, result)=>{
+        //     if(result)
+        //     {
+        //         // console.log(result);
+        //         Expenses = JSON.parse(result);
+        //     }else{
+        //         Expenses = await Expense.find({}).populate('category');
+        //         updateExpenseRedis();
+        //     }
+        //     res.json({
+        //         result: Expenses
+        //     });
+        // });
     }catch(err)
     {
         res.status(500).json({
